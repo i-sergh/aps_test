@@ -19,7 +19,10 @@
             <li class="search-li">
                 <div class="search-box">
                     <input class="search-txt" type="text" placeholder="Let's start!">
-                    <input class="search-btn" type="button">
+                    <!-- <input class="search-btn" type="image"  src="{{ url_for('icons', path='magnifying-glass-solid.svg') }}" > -->
+                    <button class="search-btn"> 
+                        <img src="{{ url_for('icons', path='magnifying-glass-solid.svg') }}" class="magnifying-glass"/>      
+                    </button>
                 </div>
             </ul>
         </ul>

@@ -9,6 +9,7 @@ app = FastAPI(
     )
 
 app.mount('/static', StaticFiles(directory='pages/static'), name='static')
+app.mount('/icons', StaticFiles(directory='pages/static/icons/'), name='icons')
 app.include_router(search_router)
 app.include_router(pages_router)
 
