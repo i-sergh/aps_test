@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HALLO!</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='base.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <nav class="navigation">
+        <ul >
+            <li class="logo-li">
+                <div class="logo-box">
+                    HALLO <br> SEARCH<span><b>!</b></span>
+                </div>
+            </li>
+            <li class="search-li">
+                <div class="search-box">
+                    <input class="search-txt" type="text" placeholder="Let's start!">
+                    <input class="search-btn" type="button">
+                </div>
+            </ul>
+        </ul>
+        
+    </nav>
+    <hr>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
