@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_async_session
 
 from search.models import documents_tb
-from search.schemas import Document
+from search.schemas import Document  # ??
 
 
 router = APIRouter(
@@ -16,8 +16,8 @@ router = APIRouter(
 
 
 @router.get('/')
-async def get_results_last_twenty_results(session: AsyncSession = Depends(get_async_session)):
-    query = select(documents_tb).order_by(desc(documents_tb.c.created_date)).limit(2)
+async def get_last_twenty_results(session: AsyncSession = Depends(get_async_session)):
+    query = select(documents_tb).order_by(desc(documents_tb.c.created_date)).limit(20)
     result = await session.execute(query)
     data = [list(val)  for val in result.all()]
     return {'code': 200, 'status':'success', 
