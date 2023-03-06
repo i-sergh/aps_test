@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HALLO!</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='base.css') }}">
+    <script>
+        const search = () => {
+            const searchInputValue = document.getElementById("search-txt").value;
+            window.location.href = `/pages/search/${searchInputValue}`;
+        }
+    </script>
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <nav class="navigation">
+        <ul >
+            <li class="logo-li">
+                <div class="logo-box">
+                    HALLO <br> SEARCH<span><b>!</b></span>
+                </div>
+            </li>
+            <li class="search-li">
+                <div class="search-box">
+                    <input id="search-txt" class="search-txt" type="text" placeholder="Let's start!">
+                    <!-- <input class="search-btn" type="image"  src="{{ url_for('icons', path='magnifying-glass-solid.svg') }}" > -->
+                    <button class="search-btn" onclick="search()"> 
+                        <img src="{{ url_for('icons', path='magnifying-glass-solid.svg') }}" class="magnifying-glass"/>      
+                    </button>
+                </div>
+            </ul>
+        </ul>
+        
+    </nav>
+    <hr>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
