@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
+from fastapi.exceptions import RequestValidationError
 
 from search.router import router as search_router
 from pages.router import router as pages_router
@@ -15,6 +16,13 @@ app.include_router(search_router)
 app.include_router(pages_router)
 
 @app.get('/')
-def hello():
+async def start_page():
     return RedirectResponse("/pages/")
 
+@app.exception_handler(404)
+async def custom_handler(request, e):
+    return RedirectResponse("/pages/")
+
+@app.exception_handler(RequestValidationError)
+async def custom_422_handler(request, e):
+    return RedirectResponse("/pages/")

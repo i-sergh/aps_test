@@ -11,21 +11,19 @@ router = APIRouter(
 templates = Jinja2Templates(directory='pages/templates')
 
 @router.get('/')
-def get_start_page(request: Request):
+async  def get_start_page(request: Request):
     return templates.TemplateResponse('base.html', 
                                         {'request': request,})
 
 
 @router.get('/search/')
-def get_search_page(request: Request, results=Depends(get_last_twenty_results)):
-    """ print(results) """
+async  def get_search_page(request: Request, results=Depends(get_last_twenty_results)):
     return templates.TemplateResponse('search.html', 
                                         {'request': request,
                                         'results': results})
 
 @router.get('/search/{id}')
-def get_search_page(request: Request, results=Depends(get_by_id)):
-    """ print(results) """
+async def get_search_page(request: Request, results=Depends(get_by_id)):
     return templates.TemplateResponse('search.html', 
                                         {'request': request,
                                         'results': results})

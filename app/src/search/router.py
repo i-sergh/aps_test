@@ -36,5 +36,5 @@ async def get_by_id (id:int, session: AsyncSession = Depends(get_async_session))
     result = await session.execute(query)
     data = [list(val)  for val in result.all()]
     return {'code': 200, 'status':'success', 
-             'data': data}
-    
+            'data': data}
+        
