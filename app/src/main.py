@@ -17,12 +17,15 @@ app.include_router(pages_router)
 
 @app.get('/')
 async def start_page():
+    '''Возвращает стартовую страницу'''
     return RedirectResponse("/pages/")
 
 @app.exception_handler(404)
-async def custom_handler(request, e):
+async def custom_404_handler(request, e):
+    '''Редирект при запросе на несуществующий путь'''
     return RedirectResponse("/pages/")
 
 @app.exception_handler(RequestValidationError)
 async def custom_422_handler(request, e):
+    '''Редирект при неправильном запросе'''
     return RedirectResponse("/pages/")
