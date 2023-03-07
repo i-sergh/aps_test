@@ -17,6 +17,7 @@ router = APIRouter(
 
 @router.get('/')
 async def get_last_twenty_results(session: AsyncSession = Depends(get_async_session)):
+    """Возвращает последние - по дате публикации - 20 постов. \nОтсортированы по-убыванию"""
     query = select(documents_tb).order_by(desc(documents_tb.c.created_date)).limit(20)
     result = await session.execute(query)
     data = [list(val)  for val in result.all()]
@@ -25,6 +26,7 @@ async def get_last_twenty_results(session: AsyncSession = Depends(get_async_sess
 
 @router.delete('/delete')
 async def delete_document_by_id (id:int, session: AsyncSession = Depends(get_async_session)):
+    """Удаляет пост по id"""
     query = delete(documents_tb).where(documents_tb.c.id == id)
     await session.execute(query)
     await session.commit()
@@ -32,6 +34,7 @@ async def delete_document_by_id (id:int, session: AsyncSession = Depends(get_asy
 
 @router.get('/id/')
 async def get_by_id (id:int, session: AsyncSession = Depends(get_async_session)):
+    """Возвращает пост по id"""
     query = select(documents_tb).where(documents_tb.c.id == id)
     result = await session.execute(query)
     data = [list(val)  for val in result.all()]
