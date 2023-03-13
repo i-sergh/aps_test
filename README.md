@@ -21,9 +21,13 @@ sudo docker-compose exec fastapi bash -c "cd .. && alembic revision --autogenera
 ```bash
 sudo docker-compose exec  fastapi bash -c "cd .. && alembic upgrade head"
 ```
-4. Заполняем базу исходными данными
+4. Заполняем базу postgres исходными данными
 ```bash
 sudo docker-compose exec  fastapi bash -c "cd ../utils && python converter_postgres.py"
+```
+5. Теперь заполняем базу elastic исходными данными
+```bash
+sudo docker-compose exec  fastapi bash -c "cd ../utils && python converter_elastic.py"
 ```
 
 
