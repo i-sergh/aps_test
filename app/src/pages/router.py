@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
 
-from search.router import get_last_twenty_results, get_by_id
+from search.router import get_last_twenty_results, get_twenty_results_by_string
 
 router = APIRouter(
     prefix='/pages',
@@ -24,9 +24,9 @@ async  def get_search_page(request: Request, results=Depends(get_last_twenty_res
                                         {'request': request,
                                         'results': results})
 
-@router.get('/search/{id}')
-async def get_search_page(request: Request, results=Depends(get_by_id)):
-    """Возвращает страницу с постом по id"""
+@router.get('/search/{req}')
+async def get_search_page(request: Request, results=Depends(get_twenty_results_by_string)):
+    """Возвращает страницу с постом по введенной строке"""
     return templates.TemplateResponse('search.html', 
                                         {'request': request,
                                         'results': results})

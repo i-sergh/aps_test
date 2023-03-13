@@ -4,9 +4,11 @@ from sqlalchemy import select, delete, desc
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import get_async_session
+from search.utils import get_ids_by_string_from_elastic
 
 from search.models import documents_tb
-from search.schemas import Document  # ??
+
+
 
 
 router = APIRouter(
@@ -15,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get('/')
+@router.get('/get-twenty')
 async def get_last_twenty_results(session: AsyncSession = Depends(get_async_session)):
     """Возвращает последние - по дате публикации - 20 постов. \nОтсортированы по-убыванию"""
     query = select(documents_tb).order_by(desc(documents_tb.c.created_date)).limit(20)
@@ -23,6 +25,18 @@ async def get_last_twenty_results(session: AsyncSession = Depends(get_async_sess
     data = [list(val)  for val in result.all()]
     return {'code': 200, 'status':'success', 
              'data': data}
+
+@router.get('/')
+async def get_twenty_results_by_string(req:str, session: AsyncSession = Depends(get_async_session)):
+    """"""
+    elastic_id_result = get_ids_by_string_from_elastic(req)
+    query = select(documents_tb).filter(documents_tb.c.id.in_(elastic_id_result)).order_by(desc(documents_tb.c.created_date)).limit(20)
+    result = await session.execute(query)
+    data = [list(val)  for val in result.all()]
+    return {'code': 200, 'status':'success', 
+             'data': data}
+
+
 
 @router.delete('/delete')
 async def delete_document_by_id (id:int, session: AsyncSession = Depends(get_async_session)):

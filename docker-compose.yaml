@@ -12,6 +12,7 @@ services:
       - 8000:80
     depends_on:
       - postgres_db
+      - elastic
     networks:
       - app_network
 
@@ -28,9 +29,21 @@ services:
       - POSTGRES_DB=documents_db
     networks:
       - app_network  
+  elastic:
+    image: "bitnami/elasticsearch:7" 
+    container_name: elastic 
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elastic-data:/usr/share/elasticsearch/data
+    networks:
+      - app_network
+
 volumes:
   postgres_data:
   server:
+  elastic-data:
 
 networks:
   app_network:

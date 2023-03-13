@@ -41,7 +41,7 @@ with Session(engine) as session:
                 'rubrics': rubrics_str2list( row['rubrics']), 
                 'text': row['text'], 
                 'created_date': row['created_date']}
-        
         append_data_from_pd_to_postgres(data, session)
         print(f'append row %s from %s to postgres db'%  (idx, CSV_PATH), end='\r')
+        
     print('\ndata appended successfully')
