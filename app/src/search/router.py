@@ -28,7 +28,8 @@ async def get_last_twenty_results(session: AsyncSession = Depends(get_async_sess
 
 @router.get('/')
 async def get_twenty_results_by_string(req:str, session: AsyncSession = Depends(get_async_session)):
-    """"""
+    """Возвращает 20 документов, содержащих введенную строку req 
+    Документы отсортированы по дате создания в порядке убывания"""
     elastic_id_result = get_ids_by_string_from_elastic(req)
     query = select(documents_tb).filter(documents_tb.c.id.in_(elastic_id_result)).order_by(desc(documents_tb.c.created_date)).limit(20)
     result = await session.execute(query)
