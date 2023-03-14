@@ -3,13 +3,27 @@
 <!--  не забудь блок head   -->
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', path='search.css') }}">
+<script>
+    function deletePost(id) {
+        
+        fetch('http://127.0.0.1:8000/search/delete?id=' + id,  {
+            method: 'DELETE'
+        })
+        window.location.reload();
+}
+</script>
 {% endblock %}
 
 {% block content %}
     <div class="posts">
         {% for result in results.data %}
         <div class="post" id={{ result[0] }}>
-           <span class="user-id">User id {{ result[0] }}</span>
+            <div class="post-header">
+                <span class="user-id">User id {{ result[0] }}</span>
+                <button class="delete-btn" onclick="deletePost ({{ result[0] }} )">
+                    Delete {{ result[0] }}
+                </button>
+            </div>
                     <div class="rubrics">
                     {% for rubric in  result[1] %}
                          <div class="rubric"> 

@@ -4,7 +4,7 @@ from sqlalchemy import select, delete, desc
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import get_async_session
-from search.utils import get_ids_by_string_from_elastic
+from search.utils import get_ids_by_string_from_elastic, delete_by_id_from_elastic
 
 from search.models import documents_tb
 
@@ -45,6 +45,7 @@ async def delete_document_by_id (id:int, session: AsyncSession = Depends(get_asy
     query = delete(documents_tb).where(documents_tb.c.id == id)
     await session.execute(query)
     await session.commit()
+    delete_by_id_from_elastic(id)
     return {'code': 200, 'status':'success'}
 
 @router.get('/id/')

@@ -14,3 +14,7 @@ def get_ids_by_string_from_elastic (req:str):
     }, size=1500)
 
     return [int(hint['_id']) for hint in resp['hits']['hits']]
+
+
+def delete_by_id_from_elastic(id:int):
+    es.delete(index=f"{ELASTIC_INDEX}",id=id)
