@@ -1,6 +1,6 @@
 # aps_test
 
-Тестовое задание для apsolutions.ru
+
 Использован фреймворк ```fastapi``` <br>
 Присутствует документация в формате openapi - <a href="https://github.com/i-sergh/aps_test/blob/master/docs.json">docs.json</a>
 
